@@ -8,12 +8,12 @@ function App() {
   const[inputValue, setInputValue] = useState(1)
   const[sigma, setSigma] = useState(1)
 
-// useMemo
+// useMemo => computing total on the fly, so no state variabloe needed, so no extra re-render after inputValue changes
   let total = useMemo(()=>{
     return (parseInt(inputValue) * ( parseInt(inputValue) + 1) ) / 2;
   },[inputValue])
 
-// useEffect
+// useEffect => setting the state variable, so one extra re-render after inputValue changes
 
 //   useEffect(()=> {
 //     setCount((parseInt(inputValue) * ( parseInt(inputValue) + 1) ) / 2);
