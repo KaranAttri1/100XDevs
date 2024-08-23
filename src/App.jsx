@@ -7,9 +7,17 @@ function App() {
   const[count,setCount] = useState(1)
   var b = 1;
 
-  function a () {
-    return <p>Hey</p>
-  }
+  // function a () {
+  //   return <p>Hey</p>
+  // }
+
+
+  // instead of above , use useCallback like it is given below
+
+  const a = useCallback(function () {
+    return <p>Hey</p>}
+    ,[])
+
   return (
     <div>
       <button onClick={()=>setCount(count+1)}>Counter: {count}</button>
