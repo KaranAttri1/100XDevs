@@ -1,41 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 
 
 
 function App() {
+
+  const[id,setId] = useState(1)
+
+  // const[todos, setTodos] = useState([])
+  // useEffect(()=> {
+  //  fetch("https://sum-server.100xdevs.com/todos").then(
+  //   async function(res) {
+  //     let json = await res.json();
+  //     setTodos(json.todos);
+  //   })
+  // },[])
+  function changeId(id) {
+    setId(id);
+  }
   return (
-    <>
-      <CardWrapper innerComponent={<TextComponent/>}> 
-        {//Anything inside component are passed as children prop
-        }
-        <Hello/> 
-      </CardWrapper>
-    </>
+    <div>
+        <button onClick={function () {setId(1)}}>1</button>
+        <button onClick={function () {setId(2)}}>2</button>
+        <button onClick={function () {setId(3)}}>3</button>
+        <button onClick={function () {setId(4)}}>4</button>
+        <Todo id={id}/>
+    </div>
   )
 }
 
-function CardWrapper ({innerComponent,children}) {
+function Todo ({id}) {
+  const[ todo, setTodos ] = useState({})
+  useEffect(()=>{
+    fetch(`https://sum-server.100xdevs.com/todo?id=${id}`).then(
+      async function(response) {
+        const json = await response.json();
+        setTodos(json.todo)
+        // setTodos({...todos,json.todo})
+      }
+    )
+  },[id])
   return (
-    <>
-      <div style={{border : '2px solid black'}}>
-      {innerComponent}
-      </div>
-      <div style={{border : '2px solid red'}}>
-        {children}
-      </div>
-    </>
+    <div>
+      <h1>{todo.title}</h1>
+      <h5>{todo.desciption}</h5>
+    </div>
   )
 }
 
-function TextComponent () {
-  return (
-    <div>Text</div>
-  )
-}
-
-function Hello () {
-  return (
-    <div>Hello</div>
-  )
-}
 export default App;
