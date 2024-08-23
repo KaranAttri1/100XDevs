@@ -6,11 +6,18 @@ function App() {
 
   const[count,setCount] = useState(1)
   const[inputValue, setInputValue] = useState(1)
+  const[sigma, setSigma] = useState(1)
 
 // useMemo
   let total = useMemo(()=>{
     return (parseInt(inputValue) * ( parseInt(inputValue) + 1) ) / 2;
   },[inputValue])
+
+// useEffect
+
+//   useEffect(()=> {
+//     setCount((parseInt(inputValue) * ( parseInt(inputValue) + 1) ) / 2);
+//   },[inputValue]);
 
   return (
     <div>
