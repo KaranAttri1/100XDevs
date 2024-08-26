@@ -1,40 +1,25 @@
-import React, { useState, useEffect, useMemo, memo } from 'react'
+import React, { useState, useEffect, useMemo, memo, useRef } from 'react'
 
 
 
 function App() {
 
-  const[count,setCount] = useState(1)
-  var b = 1;
+  const divRef = useRef();
 
-  // function a () {
-  //   return <p>Hey</p>
-  // }
+  setTimeout(()=>{
+    // this will change the name in divRef from "Karan" to "Attri"
+    divRef.current.innerHTML = "Attri"
+  },5000)
 
-
-  // instead of above , use useCallback like it is given below
-
-  const a = useCallback(function () {
-    return <p>Hey</p>}
-    ,[])
+  const name = "Karan"
 
   return (
-    <div>
-      <button onClick={()=>setCount(count+1)}>Counter: {count}</button>
-      {/* b is not re-rendered */}
-      <Demo b={b}></Demo>
-
-      {/* a is re-rendered bcz here reference of function is passed and React doesnt know whether it is same or not 
-      so it rerenders the component, so to avoid it we use useCallback */}
-      <Demo a={a}></Demo>
-    </div>
+    <p>
+        My name is 
+        <div ref={divRef}>{name}</div>
+    </p>
   )
 }
 
-const Demo = memo(function(a) {
-  console.log("rerendered")
-  return (
-    <div>Demo</div>
-  )
-})
+
 export default App;
