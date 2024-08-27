@@ -19,7 +19,7 @@ const todoSchema = mongoose.Schema({
     completed: Boolean
 });
 
-const todo = mongoose.model('todos',todoSchema);
+const todo = mongoose.model('Week 5.2 Todo',todoSchema);
 
 module.exports = { 
     todo 
