@@ -11,7 +11,7 @@
 
 const mongoose = require('mongoose')
 
-mongoose.connect("mongodb://karanattri1@gmail.com:L@tee12345@localhost:27017/100xdevs")
+mongoose.connect("mongodb://localhost:27017/100xdevs")
 
 const todoSchema = mongoose.Schema({
     title: String,

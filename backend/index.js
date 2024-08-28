@@ -4,12 +4,12 @@
 const express =  require('express');
 const { createTodo, updateTodo } = require('./types');
 const { todo } = require('./db');
-
+const cors = require('cors')
 const app = express();
 
 // to parse a json body
 app.use(express.json())
-
+app.use(cors())
 // body {
 //     title: String
 //     description: String
@@ -18,7 +18,7 @@ app.use(express.json())
 app.get('/todos',async function(req,res){
     const todos = await todo.find({})
     console.log("all todos", todos) // if await is not used then this is a promise
-
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
     res.json({
         todos
     })
@@ -68,3 +68,6 @@ app.put('/completed',async function(req,res){
     })
 
 })
+
+
+app.listen(3000);
