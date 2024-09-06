@@ -9,6 +9,7 @@ function App() {
 
   return (
     <BrowserRouter>
+        {/* this navbar stays at the same place even if route changes */}
         <div style={{background:'black'}}>
           This is topbar
         </div>
