@@ -3,12 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
-import Landing from '../components/Landing'
-// const Dashboard = React.lazy(()=>import('../components/Dashboard'))
-
 
 //*****  if export function, then use curly braces - import { Dashboard } from '../components/Dashboard'
 //*****  if export DEFAULT fucntion, then no need to use curly braces - import Dashboard from '../components/Dashboard'
+
+// LAZY LOADING + IMPORT 
+
+const Landing = React.lazy(()=>import('../components/Landing'))
+const Dashboard = React.lazy(()=>import('../components/Dashboard'))
 
 function App() {
 
