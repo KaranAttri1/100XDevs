@@ -2,29 +2,43 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useContext } from 'react'
+import { createContext } from 'react'
+
+const countData =  createContext();
 
 function App() {
   const [count, setCount] = useState(0)
-
   return (
     <>
-      <Count count={count}></Count>
+      <countData.Provider value={{count,setCount}}>
+        <Count></Count>
+      </countData.Provider>
     </>
   )
 }
 
-function Count({count,setCount}) {
+function Count() {
 return (
   <div>
-    Count:{count}
-    {/* Example of PropDrilling here is passing setCount to Count, 
-        Count doesnt require setCount but we passed it bcz its child Buttons needed it  */}
-    <Buttons count={count} setCount={setCount}></Buttons>  
+    <CountRenderer ></CountRenderer>
+    <Buttons></Buttons>  
     </div>
 )
 }
+function CountRenderer() {
+  const {count} = useContext(countData)
 
-function Buttons({count,setCount}){
+  return (
+    <div>
+      Count:{count}
+    </div>
+  )
+}
+function Buttons(){
+    const {setCount} = useContext(countData)
+    const {count} = useContext(countData)
+
     return(
       <>
       <button onClick={()=>setCount(count + 1)}>
@@ -37,4 +51,4 @@ function Buttons({count,setCount}){
     )
 }
 
-export default App
+export default App;
