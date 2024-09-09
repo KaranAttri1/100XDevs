@@ -4,16 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { useContext } from 'react'
 import { createContext } from 'react'
-
-const countData =  createContext();
+import { CountContext } from './context'
 
 function App() {
   const [count, setCount] = useState(0)
   return (
     <>
-      <countData.Provider value={{count,setCount}}>
+      <CountContext.Provider value={{count,setCount}}>
         <Count></Count>
-      </countData.Provider>
+      </CountContext.Provider>
     </>
   )
 }
@@ -27,7 +26,7 @@ return (
 )
 }
 function CountRenderer() {
-  const {count} = useContext(countData)
+  const {count} = useContext(CountContext)
 
   return (
     <div>
@@ -36,8 +35,8 @@ function CountRenderer() {
   )
 }
 function Buttons(){
-    const {setCount} = useContext(countData)
-    const {count} = useContext(countData)
+    const {setCount} = useContext(CountContext)
+    const {count} = useContext(CountContext)
 
     return(
       <>
