@@ -4,11 +4,11 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
 import Landing from '../components/Landing'
+// const Dashboard = React.lazy(()=>import('../components/Dashboard'))
 
-// import Dashboard from '../components/Dashboard'
-// How to use Lazy loading
-const Dashboard = React.lazy(()=>import('../components/Dashboard'))
 
+//*****  if export function, then use curly braces - import { Dashboard } from '../components/Dashboard'
+//*****  if export DEFAULT fucntion, then no need to use curly braces - import Dashboard from '../components/Dashboard'
 
 function App() {
 
