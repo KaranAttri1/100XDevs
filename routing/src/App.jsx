@@ -1,15 +1,16 @@
+import React, { Suspense, useEffect } from 'react'
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 
 //*****  if export function, then use curly braces - import { Dashboard } from '../components/Dashboard'
 //*****  if export DEFAULT fucntion, then no need to use curly braces - import Dashboard from '../components/Dashboard'
 
 // LAZY LOADING + IMPORT 
 
-const Landing = React.lazy(()=>import('../components/Landing'))
+const Landing = React.lazy(()=>import('../components/Landing')) 
 const Dashboard = React.lazy(()=>import('../components/Dashboard'))
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
     <BrowserRouter>
         <AppBar/>
         <Routes>
-            <Route path="/dashboard" element={<Dashboard/>}></Route>
-            <Route path="/" element={<Landing/>}></Route>
+            {/* Suspense - fallback */}
+            <Route path="/dashboard" element={<Suspense fallback={"Loading...."}><Dashboard/></Suspense>}></Route>
+            <Route path="/" element={<Suspense fallback={"Loading...."}><Landing/></Suspense>}></Route>
         </Routes>
     </BrowserRouter>
   )
