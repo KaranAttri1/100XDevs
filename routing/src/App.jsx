@@ -7,21 +7,28 @@ import Dashboard from '../components/Dashboard'
 import Landing from '../components/Landing'
 function App() {
 
-  // *** you can only declare useNavigate statement inside BrowserRouter, so here it is WRONG ***
-  const navigate = useNavigate(); 
+ 
 
   return (
     <BrowserRouter>
-        <div>
-          <button onClick={()=>navigate('/')}>Go to Landing </button>
-          <button onClick={()=>navigate('/dashboard')}>Go to Dashboard </button>
-        </div>
+        <AppBar/>
         <Routes>
             <Route path="/dashboard" element={<Dashboard/>}></Route>
             <Route path="/" element={<Landing/>}></Route>
         </Routes>
     </BrowserRouter>
   )
+}
+
+function AppBar() {
+    // *** you can only declare useNavigate statement inside BrowserRouter, so here it is WRONG ***
+    const navigate = useNavigate(); 
+    return(
+      <div>
+        <button onClick={()=>navigate('/')}>Go to Landing </button>
+        <button onClick={()=>navigate('/dashboard')}>Go to Dashboard </button>
+      </div>
+ )
 }
 
 export default App
