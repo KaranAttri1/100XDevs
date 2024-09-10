@@ -33,9 +33,12 @@ function CountRenderer() {
 }
 function Buttons(){
 
-  // useRecoilState, useSetRecoilState
-  const [count,setCount] = useRecoilState(countAtom);
-  const countSetState = useSetRecoilState(countAtom);
+  // useRecoilState, 
+  // const [count,setCount] = useRecoilState(countAtom);
+
+  // useSetRecoilState - NO RE-RENDER of this component 
+  //                     since no value of state is used in useSetRecoilState
+  const setCount = useSetRecoilState(countAtom);  
 
     return(
       <>
