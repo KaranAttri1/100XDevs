@@ -61,10 +61,10 @@ function Buttons(){
 
   // setCount(count + 1)           ==> here we need value of state in order to setState
 
-  // setCount(count => count + 1)  ==> with this we dont need value of state
+  // setCount(currentVal => currentVal + 1)  ==> with this we dont need value of state
 
-  // setCount(function(count) {
-  //   return count + 1;
+  // setCount(function(currentVal) {
+  //   return currentVal + 1;
   // })
     return(
       <>
