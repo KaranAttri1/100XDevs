@@ -39,13 +39,22 @@ function Buttons(){
   // useSetRecoilState - NO RE-RENDER of this component 
   //                     since no value of state is used in useSetRecoilState
   const setCount = useSetRecoilState(countAtom);  
+  
+  // 3 ways to setState
 
+  // setCount(count + 1)           ==> here we need value of state in order to setState
+
+  // setCount(count => count + 1)  ==> with this we dont need value of state
+
+  // setCount(function(count) {
+  //   return count + 1;
+  // })
     return(
       <>
-      <button onClick={()=>setCount(count + 1)}>
+      <button onClick={()=>setCount(count => count + 1)}>
           Increase
       </button> 
-      <button onClick={()=>setCount(count - 1)}>
+      <button onClick={()=>setCount(count => count - 1)}>
           Decrease
       </button>
       </>
