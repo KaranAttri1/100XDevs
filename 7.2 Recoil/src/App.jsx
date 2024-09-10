@@ -2,14 +2,14 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { countAtom } from './store/atoms/count'
 function App() {
 
   return (
-    <>
+    <RecoilRoot>
         <Count></Count>
-    </>
+    </RecoilRoot>
   )
 }
 
