@@ -1,35 +1,21 @@
+import axios from 'axios';
 import {atom,selector} from 'recoil'
 
 export const navbarAtom = atom({
     key:"navbarAtom",
-    default:{
-        network:6,
-        jobs:3,
-        messaging:7,
-        notifications:9
-    }
+
+    // default value has to be synchronous => so, use a SELECTOR(which can be async) in order to get default value from api call
+    
+    // earlier ( w/o selector ), we see a flash of default values and then values from backend
+    // now with selector there is a flash but is of complete white screen i.e nothing renders, i.e.w. we dont see a flash on screen
+    default:selector({
+        key:"navbarGet",
+        get: async ()=>{
+            const res = await axios.get('http://localhost:8080/notifications');
+            return res.data;
+        }
 })
-
-// export const networkAtom = atom({
-//     key:"networkAtom",
-//     default:102
-// })
-
-// export const jobsAtom = atom({
-//     key:"jobsAtom",
-//     default:0
-// })
-
-// export const messagesAtom = atom({
-//     key:"messagesAtom",
-//     default:0
-// })
-
-// export const notificationsAtom = atom({
-//     key:"notificationsAtom",
-//     default:102
-// })
-
+})
 
 // Selector => here show sum of network + notifications over Me button
 
