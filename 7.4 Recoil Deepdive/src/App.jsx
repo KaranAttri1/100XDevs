@@ -6,40 +6,28 @@ import './App.css'
 import { meSum, navbarAtom } from './store/atoms/navbar'
 import { useEffect } from 'react'
 import axios from 'axios';
+import { todosAtomFamily } from './store/atoms/todos'
 
 function App() {
   return(
     <RecoilRoot>
-      <MainApp/>
+      <Todo id={1}/>
+      <Todo id={2}/>
+      <Todo id={2}/>
+      <Todo id={2}/>
+      <Todo id={2}/>
     </RecoilRoot>
   )
-}
-
-
-function MainApp() {
-  const [navbar,setNavbar] = useRecoilState(navbarAtom)
-  useEffect(()=>{
-    axios.get('http://localhost:8080/notifications').then(
-      (res)=>{
-        setNavbar(res.data);
-      }
+}function Todo({id}) {
+  // atomFamily => it returns an atom with the id
+    const todo = useRecoilValue(todosAtomFamily(id))
+    // const title = ''
+    return(
+      <div>
+        <h1>{todo.title}</h1>
+        <p>{todo.description}</p>
+      </div>
     )
-  },[]);
-  const meSelector = useRecoilValue(meSum)
-  return (
-    <>
-      <button>Home</button>
-
-      <button>My network ({navbar.network > 99 ? '99+' : navbar.network})</button>
-      <button>Jobs ({navbar.jobs})</button>
-      <button>Messaging ({navbar.messaging})</button>
-      <button>Notifications ({navbar.notifications})</button>
-
-      <button onClick={()=>{
-        setNavbar({...navbar,messaging: navbar.messaging + 1})
-      }}>Me ({meSelector})</button>
-    </>
-  )
 }
 
 export default App
