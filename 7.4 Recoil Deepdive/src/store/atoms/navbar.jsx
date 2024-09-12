@@ -1,4 +1,4 @@
-import {atom} from 'recoil'
+import {atom,selector} from 'recoil'
 
 export const networkAtom = atom({
     key:"networkAtom",
@@ -18,4 +18,14 @@ export const messagesAtom = atom({
 export const notificationsAtom = atom({
     key:"notificationsAtom",
     default:102
+})
+
+
+// Selector => here show sum of network + notifications over Me button
+
+export const meSum = selector({
+    key:"meSelector",
+    get:({get}) => {
+        return get(networkAtom) + get(notificationsAtom) + get(jobsAtom) + get(messagesAtom);
+    }
 })
