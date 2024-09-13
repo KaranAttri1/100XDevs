@@ -22,6 +22,9 @@ function App() {
   // atomFamily => it returns an atom with the id
   // Also it creates atom for todo (id=2) only once, for subsequent todo (id = 2) it does not create new atom
     const todo = useRecoilValue(todosAtomFamily(id))
+
+  // Selector Family
+  
     return(
       <div>
         <h1>{todo.title}</h1>

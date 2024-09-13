@@ -1,31 +1,29 @@
-import {atom,atomFamily} from 'recoil'
-export const TODOS =     [         
-  {
-    id:1,
-    title:"Gym",
-    description:"Evening Cult",
-    completed:false
-  },
-  {
-    id:2,
-    title:"Dance",
-    description:"Foxfire",
-    completed:false
-  }
-]
-
-// atomFamily returns an atom with the given input => BASICALLY IT IS AN ATOM MAKING MACHINE
+import axios from 'axios'
+import {atom,atomFamily,selectorFamily} from 'recoil'
 
 export const todosAtomFamily = atomFamily({
     key:'todosAtomFamily',
-    // default value is a function here
+    // Use Selector Family for AtomFamily => Selector Family creates different selector for diff atom
+    default: selectorFamily({
+        key:"todosSelectorFamily",
 
-    // eg. if same id is asked again, default wont run , rather it will return a cached value, just like an atom
-    default: id => {
-        let foundTodo = null;
-        return TODOS.find(todo => todo.id === id)
-    }
+        // ***** SYNTAX is little different - It returns a function inside a function ******
+        // ALSO REMEMBER eg if id=2 and there are multiple components with id=2, it will send reques only once
+        get:(id)=> async ({get})=>{
+          const res = await axios.get(`http://localhost:8080/todo?id=${id}`)
+          return res.data.todo;
+        }
+
+        // Another way to write
+
+        // get: function(id) {
+        //   return async ({get})=>{
+        //     const res = await axios.get(`http://localhost:8080/todo?id=${id}`)
+        //     return res.data.todo;
+
+        // }
+
+    })
 })
 
 
-// Drawback of storing Todos as an atom is that if one todo chnages all Todo components re-render, i.e.w we use atomFamily
