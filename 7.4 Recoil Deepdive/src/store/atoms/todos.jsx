@@ -26,3 +26,6 @@ export const todosAtomFamily = atomFamily({
         return TODOS.find(todo => todo.id === id)
     }
 })
+
+
+// Drawback of storing Todos as an atom is that if one todo chnages all Todo components re-render, i.e.w we use atomFamily
