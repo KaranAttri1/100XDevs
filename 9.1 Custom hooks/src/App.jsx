@@ -8,22 +8,25 @@ import axios from 'axios'
 //Custom Hook
 function useTodos(){ 
   const[todos,setTodos] = useState([])
-  
+  const[loading,setLoading] = useState(true)
+
   useEffect(()=>{
    axios.get("http://localhost:8080/todos").
    then(res=>{
     // console.log(res)
     setTodos(res.data.todos)
+    setLoading(false)
     })
   },[])
 
-  return todos;
+  return {todos,loading};
 }
 
 
 function App() {
-  const todos = useTodos()
+  const {todos,loading} = useTodos()
   
+  if(loading) return <div>Loading..</div>
   return (
     <>
     {todos.length}
