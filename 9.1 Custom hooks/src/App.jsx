@@ -6,25 +6,33 @@ import { useEffect } from 'react'
 import axios from 'axios'
 
 //Custom Hook
-function useTodos(){ 
+function useTodos(n){ 
   const[todos,setTodos] = useState([])
   const[loading,setLoading] = useState(true)
 
   useEffect(()=>{
+  let interval = setInterval(()=>{
    axios.get("http://localhost:8080/todos").
    then(res=>{
     // console.log(res)
     setTodos(res.data.todos)
     setLoading(false)
     })
-  },[])
+  },n*1000)
+
+  // v.imp to clear last interval else two intervals will function
+  
+  return ()=>{
+    clearInterval(interval)
+  }
+  },[n]) // n is a dependency
 
   return {todos,loading};
 }
 
 
 function App() {
-  const {todos,loading} = useTodos()
+  const {todos,loading} = useTodos(5)
   
   if(loading) return <div>Loading..</div>
   return (
