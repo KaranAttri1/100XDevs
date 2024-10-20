@@ -7,17 +7,28 @@ import axios from 'axios'
 import {useIsOnline} from './hooks/useIsOnline'
 import { useMousePointer } from './hooks/useMousePointer'
 import { useInterval } from './hooks/useInterval'
+import { useDebounce } from './hooks/useDebounce'
 //Custom Hook
 
 
 function App() {
-  const[count,setCount] = useState(0);
+  const[input,setInput] = useState("");
 
-  useInterval(()=>{
-    setCount(c => c+1)
-  },1)
+  const debouncedValue = useDebounce(input,200)
 
-  return(<div>Count is {count}</div>)
+
+  // API call whenever debounced value changes
+  useEffect(()=>{
+    axios.get("http://localhost:8080/todos").then((res)=> console.log(res.data))
+  },[debouncedValue])
+
+  return(<>
+      Debounced Value is {debouncedValue}
+      <input
+      onChange={(e)=>setInput(e.target.value)}
+      value={input}
+      ></input>
+  </>)
 }
 
 // function MyComponent() {

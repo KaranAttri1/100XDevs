@@ -1,19 +1,18 @@
 import { useEffect } from "react"
 import { useState } from "react"
 
-export function useDebounce(fetchData,delay) {
+// anytime if value  changes start a clock for delay seconds
+export function useDebounce(value,delay) {
+    const[debouncedValue, setDebouncedValue] = useState(value)
     useEffect(()=>{
-      let timer = setInterval(()=>{
-        callback();
-      },n*1000)
+        let timer = setTimeout(()=>{
+            setDebouncedValue(value)
+        },delay)
 
-      return ()=>{
-        clearInterval(timer)
-      }
-    },[callback,n])
+        return ()=>{
+            clearTimeout(timer)
+        }
+    },[value])
 
-    let timer;
-    timer = setTimeout(()=>{
-        fetchData()
-    },delay)
+    return debouncedValue;
   }
