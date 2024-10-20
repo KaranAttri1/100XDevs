@@ -5,15 +5,25 @@ import './App.css'
 import { useEffect } from 'react'
 import axios from 'axios'
 
-function App() {
+//Custom Hook
+function useTodos(){ 
   const[todos,setTodos] = useState([])
+  
   useEffect(()=>{
    axios.get("http://localhost:8080/todos").
    then(res=>{
-    console.log(res)
+    // console.log(res)
     setTodos(res.data.todos)
     })
   },[])
+
+  return todos;
+}
+
+
+function App() {
+  const todos = useTodos()
+  
   return (
     <>
     {todos.length}
