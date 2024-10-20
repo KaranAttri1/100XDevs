@@ -38,18 +38,21 @@ function useTodos(n){
   return {todos,loading};
 }
 
-
+function useIsOnline() {
+  const[isOnline,setIsOnline] = useState(window.navigator.onLine)
+  useEffect(()=>{
+    window.addEventListener('online',()=>setIsOnline(true))
+    window.addEventListener('offline',()=>setIsOnline(false))
+  },[])
+  return isOnline
+}
 function App() {
-  const {todos,loading} = useTodos(5)
+  // const {todos,loading} = useTodos(5)
   
-  if(loading) return <div>Loading..</div>
-  return (
-    <>
-    {todos.length}
-    {todos.map((todo)=>{return <Track todo={todo} />}) }
-    </>
-    
-  )
+  const isOnline = useIsOnline();
+
+  if(isOnline) return "Online"
+  else return "Offline"
 }
 
 // function MyComponent() {
