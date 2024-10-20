@@ -3,31 +3,45 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { useEffect } from 'react'
+import axios from 'axios'
 
 function App() {
-  const[flag,setFlag] = useState(true)
+  const[todos,setTodos] = useState([])
   useEffect(()=>{
-    setInterval(()=>{
-      setFlag(f=>!f)
-    },3000)
+   axios.get("http://localhost:8080/todos").
+   then(res=>{
+    console.log(res)
+    setTodos(res.data.todos)
+    })
   },[])
   return (
     <>
-    {flag ? <MyComponent/> : <div>Bro</div> }
+    {todos.length}
+    {todos.map((todo)=>{return <Track todo={todo} />}) }
     </>
     
   )
 }
 
-function MyComponent() {
-  useEffect(()=>{
-    console.log("Mounted")
+// function MyComponent() {
+//   useEffect(()=>{
+//     console.log("Mounted")
    
-    return ()=>{
-      console.log("Unmounted")
-    }
-  },[])
-  return(<div>Inside my component</div>)
+//     return ()=>{
+//       console.log("Unmounted")
+//     }
+//   },[])
+//   return(<div>Inside my component</div>)
+// }
+
+function Track ({todo}) {
+  return(
+    <div>
+      {todo.title}
+      <br/>
+      {todo.describrtion}
+    </div>
+  )
 }
 
 export default App
