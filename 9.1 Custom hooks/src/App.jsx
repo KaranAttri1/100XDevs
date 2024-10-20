@@ -6,15 +6,18 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import {useIsOnline} from './hooks/useIsOnline'
 import { useMousePointer } from './hooks/useMousePointer'
+import { useInterval } from './hooks/useInterval'
 //Custom Hook
 
 
 function App() {
-  // const {todos,loading} = useTodos(5)
-  
-  const position = useMousePointer();
+  const[count,setCount] = useState(0);
 
-  return position.x + "," + position.y
+  useInterval(()=>{
+    setCount(c => c+1)
+  },1)
+
+  return(<div>Count is {count}</div>)
 }
 
 // function MyComponent() {
