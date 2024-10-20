@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {useRecoilState,useRecoilValue,RecoilRoot,useSetRecoilState} from 'recoil'
+import {useRecoilStateLoadable,useRecoilValue,RecoilRoot,useSetRecoilState} from 'recoil'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -19,18 +19,25 @@ function App() {
     </RecoilRoot>
   )
 }function Todo({id}) {
-  // atomFamily => it returns an atom with the id
-  // Also it creates atom for todo (id=2) only once, for subsequent todo (id = 2) it does not create new atom
-    const todo = useRecoilValue(todosAtomFamily(id))
+    const [todo,setTodo] = useRecoilStateLoadable(todosAtomFamily(id))
 
-  // Selector Family
-  
+    // todo above is no longer a set of todos, it is a set of objects
+    // {
+    //    contents:
+    //    state:  => contains status of whether todo has been resolved or not
+    //               its values are => loading, hasValue, hasError
+    //  }
+    if(todo.state == 'loading') {
+      return <div>Loading...</div>
+    } else if (todo.state == 'hasValue' ) {
     return(
       <div>
-        <h1>{todo.title}</h1>
-        <p>{todo.description}</p>
+        <h1>{todo.contents.title}</h1>
+        <p>{todo.contents.description}</p>
       </div>
-    )
+    )} else if(todo.state == 'hasError') {
+      return <div>Error</div>
+    }
 }
 
 export default App
