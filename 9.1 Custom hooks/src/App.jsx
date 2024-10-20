@@ -5,16 +5,16 @@ import './App.css'
 import { useEffect } from 'react'
 import axios from 'axios'
 import {useIsOnline} from './hooks/useIsOnline'
+import { useMousePointer } from './hooks/useMousePointer'
 //Custom Hook
 
 
 function App() {
   // const {todos,loading} = useTodos(5)
   
-  const isOnline = useIsOnline();
+  const position = useMousePointer();
 
-  if(isOnline) return "Online"
-  else return "Offline"
+  return position.x + "," + position.y
 }
 
 // function MyComponent() {
@@ -28,14 +28,14 @@ function App() {
 //   return(<div>Inside my component</div>)
 // }
 
-function Track ({todo}) {
-  return(
-    <div>
-      {todo.title}
-      <br/>
-      {todo.describrtion}
-    </div>
-  )
-}
+// function Track ({todo}) {
+//   return(
+//     <div>
+//       {todo.title}
+//       <br/>
+//       {todo.describrtion}
+//     </div>
+//   )
+// }
 
 export default App
